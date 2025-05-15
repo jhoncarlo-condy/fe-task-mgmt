@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { InteractiveGridPattern } from '@/components/ui/interactive-grid-pattern'
-import LandingView from './views/LandingView.vue'
+import LandingView from '@/views/LandingView.vue'
 </script>
 
 <template>

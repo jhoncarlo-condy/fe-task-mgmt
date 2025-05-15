@@ -2,8 +2,8 @@
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import LoginView from '@/views/User/LoginView.vue'
+import RegisterView from '@/views/User/RegisterView.vue'
 </script>
 <template>
   <div class="z-10">
@@ -18,57 +18,13 @@ import { Label } from '@/components/ui/label'
           <Button variant="default" class="hover:cursor-pointer"> Start </Button>
         </DialogTrigger>
         <DialogContent class="w-full">
-          <Tabs default-value="account" class="w-full p-2">
+          <Tabs default-value="login" class="w-full p-2">
             <TabsList class="grid w-full grid-cols-2">
-              <TabsTrigger value="account" class="hover:cursor-pointer"> Login </TabsTrigger>
+              <TabsTrigger value="login" class="hover:cursor-pointer"> Login </TabsTrigger>
               <TabsTrigger value="register" class="hover:cursor-pointer"> Register </TabsTrigger>
             </TabsList>
-            <TabsContent value="account">
-              <Card>
-                <CardContent class="space-y-4">
-                  <div class="space-y-1">
-                    <Label for="email">Email</Label>
-                    <Input id="email" type="email" />
-                  </div>
-                  <div class="space-y-1">
-                    <Label for="password">Password</Label>
-                    <Input id="password" type="password" />
-                  </div>
-                  <div class="space-y-4 place-self-end">
-                    <Button class="hover:cursor-pointer">Login</Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-            <TabsContent value="register">
-              <Card>
-                <CardContent class="space-y-4">
-                  <div class="space-y-1">
-                    <Label for="firstName">First Name</Label>
-                    <Input id="firstName" type="text" />
-                  </div>
-                  <div class="space-y-1">
-                    <Label for="lastName">Last Name</Label>
-                    <Input id="lastName" type="text" />
-                  </div>
-                  <div class="space-y-1">
-                    <Label for="email">Email</Label>
-                    <Input id="email" type="email" />
-                  </div>
-                  <div class="space-y-1">
-                    <Label for="password">Password</Label>
-                    <Input id="password" type="password" />
-                  </div>
-                  <div class="space-y-1">
-                    <Label for="confirm_password">Confirm Password</Label>
-                    <Input id="confirm_password" type="confirm_password" />
-                  </div>
-                  <div class="space-y-4 place-self-end">
-                    <Button class="hover:cursor-pointer">Register</Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
+            <TabsContent value="login"> <LoginView /> </TabsContent>
+            <TabsContent value="register"><RegisterView /></TabsContent>
           </Tabs>
         </DialogContent>
       </Dialog>
