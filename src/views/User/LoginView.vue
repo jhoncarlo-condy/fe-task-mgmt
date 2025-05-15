@@ -8,8 +8,10 @@ import useVuelidate from '@vuelidate/core'
 import { required, email, minLength, helpers } from '@vuelidate/validators'
 import { toast } from 'vue3-toastify'
 import { useMutation } from '@tanstack/vue-query'
-import Cookies from 'js-cookie'
 import { loginUser } from '@/server/User/User.tsx'
+import { useAuthStore } from '@/stores/auth'
+
+const auth = useAuthStore()
 
 const formData = reactive({
   email: '',
@@ -49,22 +51,15 @@ const loginMutation = useMutation({
       return
     }
 
-    if (data?.role) {
+    if (data?.user_type) {
       toast.success('Login Successful')
-      Cookies.set('token', data.access_token, {
-        secure: true,
-        sameSite: 'Strict',
+      auth.login({
+        token: data.access_token,
+        user: {
+          email: formData.email,
+          user_type: data.user_type,
+        },
       })
-      Cookies.set('role', data.role, { secure: true, sameSite: 'Strict' })
-      if (data.role == 'admin') {
-        setTimeout(() => {
-          window.location.replace('/admin/dashboard')
-        }, 1000)
-      } else {
-        setTimeout(() => {
-          window.location.replace('/admin/dashboard')
-        }, 1000)
-      }
     }
   },
 })
