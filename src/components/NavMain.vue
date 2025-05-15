@@ -36,7 +36,12 @@ function handleClick(url?: string) {
         :key="item.title"
         :class="{ 'bg-muted': item.isActive }"
       >
-        <SidebarMenuButton :tooltip="item.title" as="button" @click="handleClick(item.url)">
+        <SidebarMenuButton
+          :tooltip="item.title"
+          as="button"
+          @click="handleClick(item.url)"
+          class="hover:cursor-pointer"
+        >
           <component :is="item.icon" v-if="item.icon" />
           <span>{{ item.title }}</span>
           <ChevronRight v-if="item.items?.length" class="ml-auto text-muted-foreground" />

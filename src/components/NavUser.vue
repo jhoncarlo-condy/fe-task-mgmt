@@ -19,12 +19,27 @@ import {
 import { BadgeCheck, ChevronsUpDown, CircleUser, LogOut } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+
+const router = useRouter()
+const auth = useAuthStore()
+
 const props = defineProps<{
   user: {
     email: string
     avatar: string
   }
 }>()
+
+function handleLogout() {
+  auth.logout()
+  router.push('/')
+}
+
+function handleViewAccount() {
+  router.push('/user/profile')
+}
 
 const { isMobile } = useSidebar()
 </script>
@@ -67,13 +82,13 @@ const { isMobile } = useSidebar()
           <DropdownMenuGroup>
             <DropdownMenuItem>
               <BadgeCheck />
-              <Button variant="ghost" class="text-sm">Account</Button>
+              <Button variant="ghost" class="text-sm" @click="handleViewAccount">Account</Button>
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
             <LogOut />
-            <Button variant="ghost" class="text-sm">Log out</Button>
+            <Button variant="ghost" class="text-sm" @click="handleLogout">Log out</Button>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

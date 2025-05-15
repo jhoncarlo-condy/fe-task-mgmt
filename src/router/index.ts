@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import AdminDashboard from '@/views/Admin/AdminDashboard.vue'
 import UserDashboard from '@/views/User/UserDashboard.vue'
+import ProfileView from '@/views/User/ProfileView.vue'
 /**
  * routes
  *
@@ -16,16 +17,32 @@ const routes = [
     meta: { requiresGuest: true },
   },
   {
+    path: '/admin/profile',
+    name: 'admin.profile',
+    component: AdminDashboard,
+    meta: { requiresAuth: true, user_type: 1 },
+  },
+  {
     path: '/admin/dashboard',
     name: 'admin.dashboard',
     component: AdminDashboard,
     meta: { requiresAuth: true, user_type: 1 },
   },
   {
+    path: '/user/profile',
+    name: 'user.profile',
+    component: ProfileView,
+    meta: { requiresAuth: true, user_type: 2 },
+  },
+  {
     path: '/user/dashboard',
     name: 'user.dashboard',
     component: UserDashboard,
     meta: { requiresAuth: true, user_type: 2 },
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/',
   },
 ]
 
@@ -43,7 +60,7 @@ router.beforeEach((to, from, next) => {
   const userType = auth.user?.user_type
 
   if (to.meta.requiresAuth && !isLoggedIn) {
-    return next({ name: 'login' })
+    return next({ name: 'index' })
   }
 
   if (to.meta.requiresGuest && isLoggedIn) {
