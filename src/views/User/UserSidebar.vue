@@ -11,6 +11,11 @@ const props = withDefaults(defineProps<SidebarProps>(), {
   collapsible: 'icon',
 })
 
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const path = route.path
+
 const data = {
   user: {
     email: 'm@example.com',
@@ -19,15 +24,15 @@ const data = {
   navMain: [
     {
       title: 'Dashboard',
-      url: '#',
+      url: '/user/dashboard',
       icon: LayoutDashboard,
-      isActive: true,
+      isActive: path.includes('dashboard') ? true : false,
     },
     {
       title: 'Tasks',
-      url: '#',
+      url: '/user/tasks',
       icon: ClipboardList,
-      isActive: false,
+      isActive: path.includes('tasks') ? true : false,
     },
   ],
 }

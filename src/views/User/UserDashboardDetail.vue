@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/breadcrumb'
 import Separator from '@/components/ui/separator/Separator.vue'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { SidebarTrigger } from '@/components/ui/sidebar'
 </script>
 <template>
   <header
@@ -18,9 +19,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
       <Separator orientation="vertical" class="mr-2 h-4" />
       <Breadcrumb>
         <BreadcrumbList>
-          <BreadcrumbSeparator class="hidden md:block" />
           <BreadcrumbItem class="hidden md:block">
-            <BreadcrumbLink href="#"> Dashboard </BreadcrumbLink>
+            <BreadcrumbLink href="#"> Building Your Application </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator class="hidden md:block" />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Data Fetching</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>

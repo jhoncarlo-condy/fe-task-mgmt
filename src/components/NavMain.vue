@@ -6,6 +6,9 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import { ChevronRight, type LucideIcon } from 'lucide-vue-next'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 defineProps<{
   items: {
@@ -19,6 +22,10 @@ defineProps<{
     }[]
   }[]
 }>()
+
+function handleClick(url?: string) {
+  if (url) router.push(url)
+}
 </script>
 
 <template>
@@ -29,7 +36,7 @@ defineProps<{
         :key="item.title"
         :class="{ 'bg-muted': item.isActive }"
       >
-        <SidebarMenuButton :tooltip="item.title" :as="item.url ? 'a' : 'button'" :href="item.url">
+        <SidebarMenuButton :tooltip="item.title" as="button" @click="handleClick(item.url)">
           <component :is="item.icon" v-if="item.icon" />
           <span>{{ item.title }}</span>
           <ChevronRight v-if="item.items?.length" class="ml-auto text-muted-foreground" />
