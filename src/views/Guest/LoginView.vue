@@ -60,6 +60,8 @@ const loginMutation = useMutation({
           user_type: data.user_type,
         },
       })
+
+      window.location.reload()
     }
   },
 })
