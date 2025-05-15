@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import useVuelidate from '@vuelidate/core'
-import { required, email, minLength } from '@vuelidate/validators'
+import { required, email, minLength, helpers } from '@vuelidate/validators'
 import { toast } from 'vue3-toastify'
 import { useMutation } from '@tanstack/vue-query'
 import Cookies from 'js-cookie'
@@ -17,8 +17,17 @@ const formData = reactive({
 })
 
 const rules = {
-  email: { required, email },
-  password: { required, minLength: minLength(8) },
+  email: {
+    required: helpers.withMessage('Email field is required', required),
+    email: helpers.withMessage('Email field is not a valid email address', email),
+  },
+  password: {
+    required: helpers.withMessage('Password field is required', required),
+    minLength: helpers.withMessage(
+      'Password field should be at least 8 characters long',
+      minLength(8),
+    ),
+  },
 }
 
 const v$ = useVuelidate(rules, formData)
@@ -35,7 +44,6 @@ const submitForm = async () => {
 const loginMutation = useMutation({
   mutationFn: loginUser,
   onSuccess: (data) => {
-    setLoading(false)
     if (!data.success) {
       toast.error(data.message)
       return
