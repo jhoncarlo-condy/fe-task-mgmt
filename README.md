@@ -1,8 +1,8 @@
 ![image](https://github.com/user-attachments/assets/4bb63c26-7490-4d77-be56-eda0880db569)
 
-# fe-task-mgmt
+# Task Manager (Frontend)
 
-This template should help get you started developing with Vue 3 in Vite.
+Task Manager is a lightweight task management system built with VueJS composition API, pinia, Tailwind, TypeScript, Shadcn/vue, vue-tanstack-query
 
 ## Recommended IDE Setup
 
