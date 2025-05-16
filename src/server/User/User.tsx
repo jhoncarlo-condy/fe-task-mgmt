@@ -114,3 +114,19 @@ export const updatePassword = async ({
       return error.response?.data
     })
 }
+
+export const getUserTaskStats = async () => {
+  return await AxiosInstance.get('/user/statistics')
+    .then((response) => response.data)
+    .catch((error) => error.response?.data)
+}
+
+export const useGetUserTaskStats = () => {
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['getUserTaskStats'],
+    queryFn: () => getUserTaskStats(),
+    staleTime: Infinity,
+  })
+
+  return { data, error, isLoading }
+}

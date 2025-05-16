@@ -9,6 +9,28 @@ import {
 import Separator from '@/components/ui/separator/Separator.vue'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { SidebarTrigger } from '@/components/ui/sidebar'
+import { useGetUserTaskStats } from '@/server/User/User'
+import { reactive, watch } from 'vue'
+
+const { data: result } = useGetUserTaskStats()
+
+const formData = reactive({
+  low_prio_task_count: 0,
+  mid_prio_task_count: 0,
+  high_prio_task_count: 0,
+  pending_tasks: 0,
+  completed_tasks: 0,
+})
+
+watch(result, (newResult) => {
+  if (newResult) {
+    formData.low_prio_task_count = newResult.data.low_prio_task_count
+    formData.mid_prio_task_count = newResult.data.mid_prio_task_count
+    formData.high_prio_task_count = newResult.data.high_prio_task_count
+    formData.pending_tasks = newResult.data.pending_tasks
+    formData.completed_tasks = newResult.data.completed_tasks
+  }
+})
 </script>
 <template>
   <header
@@ -37,7 +59,7 @@ import { SidebarTrigger } from '@/components/ui/sidebar'
         <DollarSign class="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent>
-        <div class="text-2xl font-bold">45,231.89</div>
+        <div class="text-2xl font-bold">{{ formData.low_prio_task_count }}</div>
         <!-- <p class="text-xs text-muted-foreground">+20.1% from last month</p> -->
       </CardContent>
     </Card>
@@ -48,7 +70,7 @@ import { SidebarTrigger } from '@/components/ui/sidebar'
         <DollarSign class="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent>
-        <div class="text-2xl font-bold">1,239</div>
+        <div class="text-2xl font-bold">{{ formData.mid_prio_task_count }}</div>
       </CardContent>
     </Card>
 
@@ -58,7 +80,7 @@ import { SidebarTrigger } from '@/components/ui/sidebar'
         <DollarSign class="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent>
-        <div class="text-2xl font-bold">320</div>
+        <div class="text-2xl font-bold">{{ formData.high_prio_task_count }}</div>
       </CardContent>
     </Card>
 
@@ -68,7 +90,7 @@ import { SidebarTrigger } from '@/components/ui/sidebar'
         <DollarSign class="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent>
-        <div class="text-2xl font-bold">320</div>
+        <div class="text-2xl font-bold">{{ formData.pending_tasks }}</div>
       </CardContent>
     </Card>
     <Card x-chunk="dashboard-01-chunk-2">
@@ -77,7 +99,7 @@ import { SidebarTrigger } from '@/components/ui/sidebar'
         <DollarSign class="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent>
-        <div class="text-2xl font-bold">320</div>
+        <div class="text-2xl font-bold">{{ formData.completed_tasks }}</div>
       </CardContent>
     </Card>
   </div>
