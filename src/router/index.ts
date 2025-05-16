@@ -4,6 +4,7 @@ import { useAuthStore } from '@/stores/auth'
 import AdminDashboard from '@/views/Admin/AdminDashboard.vue'
 import UserDashboard from '@/views/User/UserDashboard.vue'
 import ProfileView from '@/views/User/ProfileView.vue'
+import TaskView from '@/views/Task/TaskView.vue'
 /**
  * routes
  *
@@ -15,6 +16,12 @@ const routes = [
     name: 'index',
     component: LandingView,
     meta: { requiresGuest: true },
+  },
+  {
+    path: '/user/tasks',
+    name: 'tasks',
+    component: TaskView,
+    meta: { requiresAuth: true },
   },
   {
     path: '/admin/profile',
