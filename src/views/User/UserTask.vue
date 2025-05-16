@@ -20,6 +20,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { useGetTasks } from '@/server/Task/Task'
 import { reactive, ref, watch, watchEffect } from 'vue'
+import CreateTask from '../Task/CreateTask.vue'
 
 interface Task {
   id: number
@@ -33,14 +34,15 @@ interface Task {
 const currentPage = ref(1)
 const { data: result } = useGetTasks(currentPage)
 
-const tableData = reactive<{ table: Task[] }>({
+const tableData = reactive<{ table: Task[]; hasMore: boolean }>({
   table: [],
+  hasMore: false,
 })
 
-// ✅ correct reactive sync
 watchEffect(() => {
   if (result.value?.original) {
     tableData.table = result.value.original.data
+    tableData.hasMore = result.value.original.next_page_url ? true : false
   }
 })
 </script>
@@ -68,8 +70,8 @@ watchEffect(() => {
 
   <section class="p-4">
     <div class="flex items-center justify-between mb-4">
-      <h1 class="text-xl font-semibold">User Table</h1>
-      <Button class="ml-auto">Create Task</Button>
+      <h1 class="text-xl font-semibold">Task Table</h1>
+      <CreateTask />
     </div>
 
     <Table>
@@ -96,5 +98,13 @@ watchEffect(() => {
         </TableRow>
       </TableBody>
     </Table>
+    <div class="flex justify-end gap-2 mt-4">
+      <Button variant="outline" size="sm" @click="currentPage--" :disabled="currentPage === 1">
+        Previous
+      </Button>
+      <Button variant="outline" size="sm" @click="currentPage++" :disabled="!tableData.hasMore">
+        Next
+      </Button>
+    </div>
   </section>
 </template>

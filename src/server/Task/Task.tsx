@@ -19,3 +19,24 @@ export const useGetTasks = (page: Ref<number>) => {
 
   return { data, error, isLoading }
 }
+
+export const createTask = async ({
+  title,
+  description,
+  status,
+  priority,
+}: {
+  title: string
+  description: string
+  status: string
+  priority: string
+}) => {
+  return await AxiosInstance.post('/tasks', {
+    title: title,
+    description: description,
+    status: status.toLowerCase(),
+    priority: priority,
+  })
+    .then((response) => response.data)
+    .catch((error) => error.responmse?.data)
+}
