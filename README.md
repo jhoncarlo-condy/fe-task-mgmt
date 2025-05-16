@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/4bb63c26-7490-4d77-be56-eda0880db569)
+
 # fe-task-mgmt
 
 This template should help get you started developing with Vue 3 in Vite.
