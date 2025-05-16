@@ -22,6 +22,11 @@ See [Vite Configuration Reference](https://vite.dev/config/).
 npm install
 ```
 
+## Create .env file and add VITE_APP_API_BASE_URL
+```sh
+VITE_APP_API_BASE_URL=
+```
+
 ### Compile and Hot-Reload for Development
 
 ```sh
