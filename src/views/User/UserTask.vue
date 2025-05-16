@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
 import { useGetTasks } from '@/server/Task/Task'
-import { reactive, ref, watch, watchEffect } from 'vue'
+import { reactive, ref, watchEffect } from 'vue'
 import CreateTask from '../Task/CreateTask.vue'
 
 interface Task {
@@ -90,8 +90,35 @@ watchEffect(() => {
           <TableCell class="font-medium">{{ (currentPage - 1) * 10 + index + 1 }}</TableCell>
           <TableCell>{{ task.title }}</TableCell>
           <TableCell>{{ task.description }}</TableCell>
-          <TableCell>{{ task.status }}</TableCell>
-          <TableCell>{{ task.priority }}</TableCell>
+          <TableCell>
+            <span
+              :class="[
+                'px-2 py-1 rounded-full text-xs font-medium',
+                task.status === 'Pending'
+                  ? 'bg-orange-100 text-orange-500'
+                  : 'bg-green-100 text-green-500',
+              ]"
+            >
+              {{ task.status }}
+            </span>
+          </TableCell>
+          <TableCell>
+            <span
+              :class="[
+                'px-2 py-1 rounded-full text-xs font-medium',
+                task.priority === 'Low'
+                  ? 'bg-blue-100 text-blue-500'
+                  : task.priority === 'Medium'
+                    ? 'bg-yellow-100 text-yellow-500'
+                    : task.priority === 'High'
+                      ? 'bg-red-100 text-red-500'
+                      : 'bg-gray-100 text-gray-500',
+              ]"
+            >
+              {{ task.priority }}
+            </span>
+          </TableCell>
+
           <TableCell>
             <Button size="sm" variant="outline">Edit</Button>
           </TableCell>
