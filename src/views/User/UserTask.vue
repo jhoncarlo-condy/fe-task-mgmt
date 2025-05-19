@@ -21,15 +21,8 @@ import { Button } from '@/components/ui/button'
 import { useGetTasks } from '@/server/Task/Task'
 import { reactive, ref, watchEffect } from 'vue'
 import CreateTask from '../Task/CreateTask.vue'
-
-interface Task {
-  id: number
-  title: string
-  description: string
-  status: string
-  priority: string
-  order: number
-}
+import EditTask from '../Task/EditTask.vue'
+import type { Task } from '@/types/task'
 
 const currentPage = ref(1)
 const { data: result } = useGetTasks(currentPage)
@@ -118,9 +111,8 @@ watchEffect(() => {
               {{ task.priority }}
             </span>
           </TableCell>
-
           <TableCell>
-            <Button size="sm" variant="outline">Edit</Button>
+            <EditTask :task="task" />
           </TableCell>
         </TableRow>
       </TableBody>

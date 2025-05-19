@@ -38,5 +38,28 @@ export const createTask = async ({
     priority: priority,
   })
     .then((response) => response.data)
-    .catch((error) => error.responmse?.data)
+    .catch((error) => error.response?.data)
+}
+
+export const editTask = async ({
+  id,
+  title,
+  description,
+  status,
+  priority,
+}: {
+  id: number
+  title: string
+  description: string
+  status: string
+  priority: string
+}) => {
+  return await AxiosInstance.put(`/tasks/${id}`, {
+    title: title,
+    description: description,
+    status: status.toLowerCase(),
+    priority: priority,
+  })
+    .then((response) => response.data)
+    .catch((error) => error.response?.data)
 }
